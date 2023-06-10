@@ -3,15 +3,15 @@ import { NavLink } from "react-router-dom";
 import "./NavBar.css";
 
 function NavBar() {
-  const [click, setClick] = useState(false);
+  const [click, setClick] = useState(true);
 
   const handleClick = () => setClick(!click);
   return (
-    <>
+    
       <nav className='navbar'>
         <div className='nav-container'>
           <NavLink exact to='/' className='nav-logo'>
-            Sebastian | My Portfolio
+            Sebastian 
             <i className='fas fa-code'></i>
           </NavLink>
 
@@ -66,7 +66,7 @@ function NavBar() {
           </div>
         </div>
       </nav>
-    </>
+    
   );
 }
 
