@@ -21,10 +21,10 @@ root.render(
 
       <div className='pages'>
         <Routes>
-          <Route path={"/"} element={<Home />} />
-          <Route path={"/table"} element={<Table />} />
-          <Route path={"/blog"} element={<Blog />} />
-          <Route path={"/contact"} element={<Contact />} />
+          <Route exact path={"/"} element={<Home />} />
+          <Route exact path={"/table"} element={<Table />} />
+          <Route exact path={"/blog"} element={<Blog />} />
+          <Route exact path={"/contact"} element={<Contact />} />
         </Routes>
       </div>
     </Router>
