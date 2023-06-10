@@ -23,3 +23,25 @@ th {
 table{
     margin: 0 auto;
 }
+
+.tableLabel{
+  
+  display: table-cell;
+            width: 1px;
+            white-space: nowrap;
+
+}
+.tableInput{
+  background-color: white;
+  color: black;
+   width: 70%;
+}
+
+#tableForm{
+  display: table;
+  width: 100%
+}
+span {
+    display: table-cell;
+            padding: 0 4px 0 6px;
+}
