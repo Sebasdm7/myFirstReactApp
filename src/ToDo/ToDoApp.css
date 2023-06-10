@@ -1,0 +1,73 @@
+
+
+
+
+
+form {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: black;
+}
+
+input,
+textarea {
+  padding: 5px;
+  background-color: black;
+  color: white;
+}
+
+form button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+}
+
+.TaksListITems {
+  list-style: none;
+  text-align: center;
+  background-color: black;
+}
+
+
+.TaksListITems {
+  padding: 0;
+}
+
+.toDoListItem {
+  background-color: Cornsilk;
+  border: 1px solid BurlyWood;
+  border-radius: 5px 2px;
+  margin: 20px 0;
+}
+
+.toDoListItem div {
+  position: relative;
+}
+
+.toDoListItem div button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: transparent;
+  border: 0;
+  padding: 10px;
+  font-weight: bolder;
+  cursor: pointer;
+  margin: 0;
+}
+
+.toDoListItem div button:hover,
+.toDoListItem div button:focus {
+  box-shadow: 0 0 1px black;
+}
+
+.toDoListItem h2 {
+  background-color: NavajoWhite;
+  margin: 0;
+  padding: 4px;
+}
+.toDoListItem p {
+  margin: 8px;
+}

@@ -1,0 +1,43 @@
+
+
+.rowImages{
+    
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+    align-items: center;
+    height: 3500px;
+    align-content: space-around;
+    gap: 20px;
+    overflow: scroll;
+    width: 100%;
+    
+
+}
+.rowImage{
+    width: 400px;
+    height:auto;
+    
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    background-color: white ;
+    
+}
+
+img{
+    width: 90%;
+    height: auto;
+    margin: 20px;
+    
+}
+
+.rowImage:hover{
+    opacity: .7;
+}
+
+
+
+
+
+

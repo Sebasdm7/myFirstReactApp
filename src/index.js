@@ -1,13 +1,34 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import MyTable from "./MyTable";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import Table from "./NavItems/Table";
+import Home from "./NavItems/Home";
+import Contact from "./NavItems/Contact";
+import Blog from "./NavItems/Blog";
+import NavBar from "./NavBar";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <h1>My First React App</h1>
+
+    <Router>
+      <NavBar />
+
+      <div className='pages'>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/table' element={<Table />} />
+          <Route path='/blog' element={<Blog />} />
+          <Route path='/contact' element={<Contact />} />
+        </Routes>
+      </div>
+    </Router>
   </React.StrictMode>
 );
 
