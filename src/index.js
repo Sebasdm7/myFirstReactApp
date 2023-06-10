@@ -16,15 +16,8 @@ import NavBar from "./NavBar";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <HashRouter basename="/">
-      <NavBar />
-
-      <Routes>
-        <Route exact path='/' element={<Home />} />
-        <Route path='/table' element={<Table />} />
-        <Route path='/blog' element={<Blog />} />
-        <Route path='/contact' element={<Contact />} />
-      </Routes>
+    <HashRouter>
+      <App/>
     </HashRouter>
   </React.StrictMode>
 );
