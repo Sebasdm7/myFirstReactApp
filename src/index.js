@@ -17,7 +17,7 @@ root.render(
   <React.StrictMode>
     <h1>My First React App</h1>
 
-    <Router basename={process.env.PUBLIC_URL + "/"}>
+    <Router basename={process.env.PUBLIC_URL }>
       <NavBar />
 
       <div className='pages'>
