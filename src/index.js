@@ -16,17 +16,14 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Router basename={process.env.PUBLIC_URL}>
-      <h1>My First React App</h1>
       <NavBar />
 
-      <div className='pages'>
-        <Routes>
-          <Route  exact path="/" element={<Home />} />
-          <Route  path="/table" element={<Table />} />
-          <Route  path="/blog" element={<Blog />} />
-          <Route  path="/contact" element={<Contact />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route exact path='/' element={<Home />} />
+        <Route path='/table' element={<Table />} />
+        <Route path='/blog' element={<Blog />} />
+        <Route path='/contact' element={<Contact />} />
+      </Routes>
     </Router>
   </React.StrictMode>
 );
