@@ -17,7 +17,7 @@ root.render(
   <React.StrictMode>
     <h1>My First React App</h1>
 
-    <Router basename=''>
+    <Router basename={window.location.pathname || ''}>
       <NavBar />
 
       <div className='pages'>
