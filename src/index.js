@@ -16,7 +16,8 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Router basename={process.env.PUBLIC_URL}>
-   
+      <h1>My First React App</h1>
+      <NavBar />
 
       <div className='pages'>
         <Routes>
