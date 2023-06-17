@@ -6,7 +6,7 @@
     justify-content: center;
     flex-flow: row wrap;
     align-items: center;
-    height: 3500px;
+    height: auto;
     align-content: space-around;
     gap: 20px;
     overflow: scroll;
