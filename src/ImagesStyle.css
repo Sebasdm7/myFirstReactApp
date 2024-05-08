@@ -9,7 +9,6 @@
     height: auto;
     align-content: space-around;
     gap: 20px;
-    overflow: scroll;
     width: 100%;
     
 
@@ -35,9 +34,51 @@ img{
 .rowImage:hover{
     opacity: .7;
 }
+.fullScreenImageBackground-active{
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 99vw;
+    height: 99vh;
+    background-color: rgba(41, 40, 53, 0.325);
+    
+}
 
+.fullScreenImageBackground{
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 99vw;
+    height: 99vh;
+    background-color: rgba(41, 40, 53, 0.325);
+    visibility: hidden;
+}
+.fullScreenImage{
+    position: relative;
+    top: 20px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    height: 88%;
+    background-color: rgb(75, 75, 94);
 
+}
+.fullScreenImage img{
+    display: block;
+    padding: 20px;
+    max-height: 95%;
+    width: auto;
+    margin: auto;
 
+}
 
 
 

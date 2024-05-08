@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import MyTable from "../MyTable";
-const Table = () => {
+import GalleryImages from "./GalleryImages";
+const Table = (props) => {
 
   const [tableXY, setTableXY] = useState({});
   
-
+  const data = props.data;
   const handleChange = ({target}) =>{
     const {name, value} = target;
     setTableXY((prev) => ({
@@ -46,7 +47,7 @@ const Table = () => {
         </form>
       </div>
       <MyTable nColumns={tableXY.nColumns} nRows={tableXY.nRows} />
-      
+      <GalleryImages data={data}/>
     </div>
   );
 };

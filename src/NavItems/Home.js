@@ -1,12 +1,22 @@
-import React from "react";
+import React , { useState } from "react";
 import "../ImagesStyle.css";
+
 import img2 from "../imgs/logo-dark@8x.png";
 
 const Home = () => {
+
+  const [click, setClick] = useState(false);
+  const [url, setUrl] = useState('');
+  const handleClick = () => (setClick(!click));
+  
+  
   return (
     <div>
+      <div className={click ? "fullScreenImageBackground-active" : "fullScreenImageBackground"}>
+        <div className='fullScreenImage'></div>
+      </div>
       <div className='rowImages'>
-        <div className='rowImage'>
+        <div className='rowImage' onClick={handleClick}>
           <img
             className='smallImage'
             src='https://sebasdm7.github.io/WEBSITE/WebsitePhotos/img/20161102-P1040350.jpg'
