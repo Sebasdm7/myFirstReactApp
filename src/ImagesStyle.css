@@ -71,10 +71,10 @@ img{
 
 }
 .fullScreenImage img{
-    display: block;
+    
     padding: 20px;
-    width: auto;
-    height: 100%;
+    height: auto;
+    width: 70%;
     margin: auto;
 }
 
@@ -82,12 +82,10 @@ img{
 
 @media screen and (max-width: 960px) {
     .fullScreenImage img{
-       
-        position: relative;
+        
         padding: 20px;
         width: 90%;
         height: auto;
-        
         margin: auto;
         
     }
