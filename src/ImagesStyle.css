@@ -35,6 +35,7 @@ img{
     opacity: .7;
 }
 .fullScreenImageBackground-active{
+    z-index: 1;
     position: fixed;
     top: 80px;
     left: 0;
@@ -68,7 +69,7 @@ img{
     margin-right: auto;
     width: 90%;
     height: 88%;
-    background-color: rgb(75, 75, 94);
+    background-color: rgba(0, 0, 0, 0.505);
 
 }
 .fullScreenImage img{

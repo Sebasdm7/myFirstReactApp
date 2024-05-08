@@ -6,7 +6,7 @@ function GalleryItem(props) {
     const [URL, setURL] = useState(url);
     
     const handleClick = (ele) => {
-      setURL(ele.target.value);
+      
       props.setImage(URL);
       props.setClick();
       console.log(`Click child ${ele.target.value}`);
