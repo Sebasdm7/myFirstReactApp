@@ -11,6 +11,7 @@ function GalleryImages(props) {
   const handleClick = () => {
     setClick(!click);
     console.log(bigImage);
+    console.log(data);
   }
 
 
@@ -28,7 +29,7 @@ function GalleryImages(props) {
       </div>
     <div className="rowImages">
       {data.map((image) => (
-        <GalleryItem url={image.download_url} setClick={handleClick} setImage={setImage}/>
+        <GalleryItem key={image.name} url={image.download_url} setClick={handleClick} setImage={setImage}/>
       ))}
 
 

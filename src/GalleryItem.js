@@ -9,16 +9,16 @@ function GalleryItem(props) {
       setURL(ele.target.value);
       props.setImage(URL);
       props.setClick();
-      
-      
+      console.log(`Click child ${ele.target.value}`);
     }
     
     return(
-        <div className='rowImage' onClick={handleClick} value={url}>
+        <div className='rowImage' >
           
           <img
             className='smallImage'
             src={url}
+            onClick={handleClick} value={url}
           />
         </div>
     );
