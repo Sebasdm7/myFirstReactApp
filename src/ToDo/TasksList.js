@@ -5,12 +5,15 @@ export default function TasksList({ allTasks, handleDelete }) {
     <ul className="TaksListITems">
       {allTasks.map(({ title, description, id }) => (
         <li className="toDoListItem" key={id}>
-          <div>
-            <h2>{title}</h2>
-            <button onClick={() => handleDelete(id)}>X</button>
+          <div className="listItem">
+            <div className="itemHeader">
+              <h4>{title}</h4>
+              <button onClick={() => handleDelete(id)}>X</button>
+            </div>
+            {!description ? null : <p className="itemDescription">{description}</p>}
           </div>
-          {!description ? null : <p>{description}</p>}
         </li>
+
       ))}
     </ul>
   );

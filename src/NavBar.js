@@ -11,7 +11,7 @@ function NavBar() {
     <nav className='navbar'>
       <div className='nav-container'>
         <NavLink exact to='/' className='nav-logo'>
-          Sebastian
+          Webiste Name
           <i className='fas fa-code'></i>
         </NavLink>
 

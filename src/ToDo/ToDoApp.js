@@ -22,7 +22,7 @@ export default function ToDoApp() {
 
   return (
     <main>
-      <h1>Tasks</h1>
+      <h2>Tasks</h2>
       <NewTask
         newTask={newTask}
         handleChange={handleChange}
