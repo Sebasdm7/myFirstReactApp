@@ -8,15 +8,12 @@ function GalleryImages(props) {
   const [click, setClick] = useState(false);
   const [bigImage, setImage] = useState("");
   const data = props.data.data;
+
   const handleClick = () => {
     setClick(!click);
-    console.log(bigImage);
-    console.log(data);
   }
 
 
-
- 
   return (
     <div>
       <div className={click ? "fullScreenImageBackground-active" : "fullScreenImageBackground"}>

@@ -1,9 +1,10 @@
 import React from "react";
 import ToDoApp from "../ToDo/ToDoApp";
-const Blog = () => {
+function Blog(props) {
   return (
     <div>
-      <ToDoApp/>
+      <ToDoApp data={props.data}/>
+
     </div>
   );
 };
