@@ -2,7 +2,9 @@ import logo from "./logo.svg";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { collection, getDocs } from "firebase/firestore";
 import Table from "./NavItems/Table";
+import { db } from "./firebase";
 import Home from "./NavItems/Home";
 import Contact from "./NavItems/Contact";
 import Blog from "./NavItems/Blog";
@@ -19,11 +21,24 @@ function App() {
       .then((json) => setData(json))
       .catch((error) => console.error(error));
   }, []);
-  const [tasks, setTasks] = useState([
-    { id: 1, title: "First Post", description: "This is the content of the first post." },
-    { id: 2, title: "Second Post", description: "This is the content of the second post." },
-    { id: 3, title: "Third Post", description: "This is the content of the third post." }
-  ]);
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    const loadTasks = async () => {
+      const snapshot = await getDocs(collection(db, "Tasks"));
+
+      const tasksData = snapshot.docs.map(doc => ({
+        id: doc.id,          // Firestore document ID
+        ...doc.data()        // title, description, etc.
+      }));
+
+      setTasks(tasksData);
+      console.log("Tasks loaded:", tasksData);
+    };
+
+    loadTasks();
+  }, []);
+
 
   return (
     <div>

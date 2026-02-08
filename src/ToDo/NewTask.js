@@ -1,25 +1,24 @@
 import React from "react";
 
-export default function NewTask({ newTask, handleChange, handleSubmit }) {
+export default function NewTask({ title, description, setTitle, setDescription, handleSubmit }) {
   return (
     <form onSubmit={handleSubmit}>
       <input
-        name='title'
+        name='Title'
         placeholder='New task'
-        value={newTask.title || ""}
-        onChange={handleChange}
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
       />
-      {!newTask.title ? null : (
-        <>
-          <textarea
-            name='description'
-            placeholder='Details...'
-            value={newTask.description || ""}
-            onChange={handleChange}
-          />
-          <button type='submit'>Add Task</button>
-        </>
-      )}
+
+      <textarea
+        name='Description'
+        placeholder='Details...'
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+      />
+      <button type='submit'>Add Task</button>
+
+
     </form>
   );
 }
