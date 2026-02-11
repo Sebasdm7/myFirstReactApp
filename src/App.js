@@ -9,6 +9,34 @@ import Contact from "./NavItems/Contact";
 import Blog from "./NavItems/Blog";
 import NavBar from "./NavBar";
 
+const getCreatedAtValue = (task = {}) => {
+  const createdAt = task.createdAt;
+  if (!createdAt) return 0;
+
+  if (typeof createdAt.toMillis === "function") {
+    return createdAt.toMillis();
+  }
+
+  if (typeof createdAt === "number") {
+    return createdAt;
+  }
+
+  if (createdAt.seconds) {
+    const nanos = createdAt.nanoseconds ?? 0;
+    return createdAt.seconds * 1000 + nanos / 1e6;
+  }
+
+  if (createdAt instanceof Date) {
+    return createdAt.getTime();
+  }
+
+  const parsed = Date.parse(createdAt);
+  return Number.isNaN(parsed) ? 0 : parsed;
+};
+
+const sortTasksByCreatedAtAsc = (tasks = []) =>
+  [...tasks].sort((a, b) => getCreatedAtValue(a) - getCreatedAtValue(b));
+
 function App() {
   const [data, setData] = useState([]);
   const [refreshIndex, setRefreshIndex] = useState(0);
@@ -52,7 +80,7 @@ function App() {
           ...doc.data()        // title, description, etc.
         }));
 
-        setTasks(tasksData);
+        setTasks(sortTasksByCreatedAtAsc(tasksData));
         console.log("Tasks loaded:", tasksData);
       } catch (error) {
         console.error("Error loading tasks:", error);
