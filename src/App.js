@@ -1,13 +1,15 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { useState, useEffect, useRef } from "react";
+import { collection, getDocs, onSnapshot, query, where } from "firebase/firestore";
 import Table from "./NavItems/Table";
 import { db } from "./firebase";
 import Home from "./NavItems/Home";
 import Contact from "./NavItems/Contact";
 import Blog from "./NavItems/Blog";
+import Tasks from "./NavItems/Tasks";
 import NavBar from "./NavBar";
+import { resolveUserId } from "./ToDo/userIdentity";
 
 const getCreatedAtValue = (task = {}) => {
   const createdAt = task.createdAt;
@@ -36,6 +38,17 @@ const getCreatedAtValue = (task = {}) => {
 
 const sortTasksByCreatedAtAsc = (tasks = []) =>
   [...tasks].sort((a, b) => getCreatedAtValue(a) - getCreatedAtValue(b));
+
+const getTasksCacheKey = (userId) => `todoTasks:${userId || "anonymous"}`;
+const dedupeTasksById = (tasks = []) => {
+  const map = new Map();
+  tasks.forEach((task) => {
+    if (!task) return;
+    const key = task.id ?? `${task.Title ?? "task"}-${task.createdAt ?? Date.now()}`;
+    map.set(key, { ...map.get(key), ...task });
+  });
+  return Array.from(map.values());
+};
 
 function App() {
   const [data, setData] = useState([]);
@@ -69,39 +82,105 @@ function App() {
     fetchImages();
   }, [refreshIndex]);
   const [tasks, setTasks] = useState([]);
+  const [userId] = useState(() => resolveUserId());
+  const [isSyncing, setIsSyncing] = useState(false);
+  const legacyTasksLoadedRef = useRef(false);
 
   useEffect(() => {
-    const loadTasks = async () => {
-      try {
-        const snapshot = await getDocs(collection(db, "Tasks"));
+    if (typeof window === "undefined") return;
+    const cacheKey = getTasksCacheKey(userId);
+    try {
+      const cached = window.localStorage?.getItem(cacheKey);
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        if (Array.isArray(parsed)) {
+          setTasks(dedupeTasksById(parsed));
+        }
+      }
+    } catch (error) {
+      console.error("Error reading cached tasks:", error);
+    }
+  }, [userId]);
 
-        const tasksData = snapshot.docs.map(doc => ({
-          id: doc.id,          // Firestore document ID
-          ...doc.data()        // title, description, etc.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const cacheKey = getTasksCacheKey(userId);
+    try {
+      const uniqueTasks = dedupeTasksById(tasks);
+      window.localStorage?.setItem(cacheKey, JSON.stringify(uniqueTasks));
+    } catch (error) {
+      console.error("Error caching tasks:", error);
+    }
+  }, [tasks, userId]);
+
+  useEffect(() => {
+    if (!userId) {
+      return undefined;
+    }
+
+    legacyTasksLoadedRef.current = false;
+    const baseCollection = collection(db, "Tasks");
+    const scopedQuery = query(baseCollection, where("userId", "==", userId));
+    setIsSyncing(true);
+
+    const unsubscribe = onSnapshot(
+      scopedQuery,
+      async (snapshot) => {
+        setIsSyncing(false);
+        let tasksData = snapshot.docs.map((docItem) => ({
+          id: docItem.id,
+          ...docItem.data(),
         }));
 
-        setTasks(sortTasksByCreatedAtAsc(tasksData));
-        console.log("Tasks loaded:", tasksData);
-      } catch (error) {
+        if (!tasksData.length && !legacyTasksLoadedRef.current) {
+          legacyTasksLoadedRef.current = true;
+          try {
+            const legacySnapshot = await getDocs(baseCollection);
+            tasksData = legacySnapshot.docs
+              .map((docItem) => ({
+                id: docItem.id,
+                ...docItem.data(),
+              }))
+              .filter((task) => !task.userId || task.userId === userId);
+          } catch (legacyError) {
+            console.error("Error loading legacy tasks:", legacyError);
+          }
+        }
+
+        const uniqueTasks = dedupeTasksById(tasksData);
+        setTasks(sortTasksByCreatedAtAsc(uniqueTasks));
+      },
+      (error) => {
+        setIsSyncing(false);
         console.error("Error loading tasks:", error);
         setTasks([]);
       }
-    };
+    );
 
-    loadTasks();
-  }, [refreshIndex]);
+    return () => unsubscribe();
+  }, [refreshIndex, userId]);
 
   return (
-    <div>
-      <NavBar />
-      <div className="refreshBar">
-        <button type="button" onClick={triggerRefresh}>Refresh</button>
-      </div>
-      <div className='pages'>
+    <div className="appShell">
+      <header className="appHeader">
+        <NavBar />
+      </header>
+      <div className="pages">
         <Routes>
           <Route exact path='/' element={<Home />}></Route>
           <Route path='/table' element={<Table data={{ data }} />}></Route>
-          <Route path='/blog' element={<Blog data={{ tasks }} />}></Route>
+          <Route path='/blog' element={<Blog />}></Route>
+          <Route
+            path='/tasks'
+            element={
+              <Tasks
+                data={{ tasks }}
+                onRefresh={triggerRefresh}
+                userId={userId}
+                isSyncing={isSyncing}
+              />
+            }
+          ></Route>
           <Route path='/contact' element={<Contact />}></Route>
         </Routes>
       </div>

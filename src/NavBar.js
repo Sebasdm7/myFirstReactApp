@@ -10,7 +10,7 @@ function NavBar() {
   return (
     <nav className='navbar'>
       <div className='nav-container'>
-        <NavLink exact to='/' className='nav-logo'>
+        <NavLink end to='/' className='nav-logo'>
           Webiste Name
           <i className='fas fa-code'></i>
         </NavLink>
@@ -18,10 +18,11 @@ function NavBar() {
         <ul className={click ? "nav-menu active" : "nav-menu"}>
           <li className='nav-item'>
             <NavLink
-              exact
+              end
               to='/'
-              activeClassName='active'
-              className='nav-links'
+              className={({ isActive }) =>
+                `nav-links${isActive ? " active" : ""}`
+              }
               onClick={handleClick}
             >
               Home
@@ -29,10 +30,10 @@ function NavBar() {
           </li>
           <li className='nav-item'>
             <NavLink
-              exact
               to='/table'
-              activeClassName='active'
-              className='nav-links'
+              className={({ isActive }) =>
+                `nav-links${isActive ? " active" : ""}`
+              }
               onClick={handleClick}
             >
               Table
@@ -40,10 +41,10 @@ function NavBar() {
           </li>
           <li className='nav-item'>
             <NavLink
-              exact
               to='/blog'
-              activeClassName='active'
-              className='nav-links'
+              className={({ isActive }) =>
+                `nav-links${isActive ? " active" : ""}`
+              }
               onClick={handleClick}
             >
               Blog
@@ -51,10 +52,21 @@ function NavBar() {
           </li>
           <li className='nav-item'>
             <NavLink
-              exact
+              to='/tasks'
+              className={({ isActive }) =>
+                `nav-links${isActive ? " active" : ""}`
+              }
+              onClick={handleClick}
+            >
+              To-Do
+            </NavLink>
+          </li>
+          <li className='nav-item'>
+            <NavLink
               to='/contact'
-              activeClassName='active'
-              className='nav-links'
+              className={({ isActive }) =>
+                `nav-links${isActive ? " active" : ""}`
+              }
               onClick={handleClick}
             >
               Contact Us
